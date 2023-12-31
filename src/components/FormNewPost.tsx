@@ -1,12 +1,27 @@
 "use client";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import React from "react";
 import { FormData } from "@/types/blog";
 const inputClass =
-  "w-[500px] py-2 px-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300";
+  "w-[500px] py-2 px-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300 text-black";
 
 const FormNewPost = () => {
-  const [formData, setFormData] = useState<FormData>();
+  const [formData, setFormData] = useState<FormData>({
+    title: "",
+    content: "",
+  });
+
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    e.preventDefault();
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
   return (
     <form className="max-w-4xl mx-auto p-4">
       <div className="mb-4">
@@ -15,10 +30,18 @@ const FormNewPost = () => {
           className={inputClass}
           placeholder="Enter the title"
           name="title"
+          value={formData.title}
+          onChange={handleChange}
         />
       </div>
       <div className="mb-4">
-        <textarea className="w-[500px] h-[200px] text-black" />
+        <textarea
+          className="w-[500px] h-[200px] text-black p-3"
+          value={formData.content}
+          name="content"
+          placeholder="Write what is in your mind"
+          onChange={handleChange}
+        />
       </div>
 
       <button type="submit" className="bg-blue-500 p-2 rounded-lg">
