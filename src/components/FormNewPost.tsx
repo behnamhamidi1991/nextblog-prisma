@@ -1,5 +1,5 @@
 "use client";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import React from "react";
 import { FormData } from "@/types/blog";
 const inputClass =
@@ -22,8 +22,13 @@ const FormNewPost = () => {
     });
   };
 
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log(formData);
+  };
+
   return (
-    <form className="max-w-4xl mx-auto p-4">
+    <form className="max-w-4xl mx-auto p-4" onSubmit={handleSubmit}>
       <div className="mb-4">
         <input
           type="text"
